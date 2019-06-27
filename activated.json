@@ -1,0 +1,8 @@
+{
+    "example": false,
+
+    "amalgamate": true,
+    "credits": true,
+    "hash": true,
+    "help": true
+}
