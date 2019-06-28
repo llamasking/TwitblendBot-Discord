@@ -6,4 +6,4 @@ You can not currently invite this bot. It's not ready to be released. I am waiti
 2. Wildcard0 may push some updates to Twitblend, making it easier to work with.
 
 ## About
-This bot amalgamates the recent (30 days) Tweets of any two twitter accounts through the use of [Twitblend](https://github.com/wildcard0/Twitblend).
+This bot amalgamates the ~~recent (30 days)~~ Tweets of any two twitter accounts through the use of [Twitblend](https://github.com/wildcard0/Twitblend).

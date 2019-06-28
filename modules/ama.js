@@ -4,11 +4,7 @@
 */
 
 module.exports = (message, args) => {
-    // Ignore messages with only one user mentioned.
-    if (args[1] === undefined) {
-        message.reply('this command requires at least two twitter handles.');
-        return;
-    }
+    const fs = require("fs");
 
     // Notify user command has been seen.
     message.react('👍');
@@ -16,11 +12,11 @@ module.exports = (message, args) => {
     // Remove the @ from twitter handles and make them lowercase. Also sanetizes usernames.
     // @RealDonaldTrump and realdonaldtrump are considered different accounts and would have two different cache file.
     // Conserves disk space and internet as it's only saving/downloading realdonaldtrump instead of @RealDonaldTrump/RealDonaldTrump/...
-    var users = ''
+    var users = '';
     for(i=args.length-1; i>-1; i--) {
-        var sanetize = args[i].replace(/\W+/gmiu, '')
-        var users = `${users} --username ${sanetize.toString().toLowerCase().replace(/@/, '')}`
-    }
+        var sanetize = args[i].replace(/\W+/gmiu, '').toString().toLowerCase();
+        var users = `${users} --username ${sanetize}`;
+    };
 
     // Runs Twitblend
     require('child_process').exec(`./virt/bin/twitblend --cache-dir ./cache --key-file ./api.txt --num-generated 2${users}`, (err, stdout, stderr) => {
@@ -32,11 +28,9 @@ module.exports = (message, args) => {
                 4. Twitter didn\'t like the bot and blocked it\'s API keys,\n\
                 5. Something else fucked up somewhere.');
             console.error(err);
-            return;
-        }
-
-        var output = stdout.replace(/\\x..|b'|RT|\\n/gm, '');
-        message.channel.send(`\`\`${output}\`\``);
-        }
-    )
-}
+        } else {
+            var output = stdout.replace(/\\x..|b'|RT|\\n/gm, '');
+            message.reply(`${args}: \n\`\`${output}\`\``);
+        };
+    });
+};
