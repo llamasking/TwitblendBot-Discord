@@ -63,6 +63,8 @@ typings/
 # Vs code
 .vscode/
 
-# Config file
+# Custom
 config.json
 api.txt
+virt/
+cache/*

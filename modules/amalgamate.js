@@ -23,20 +23,19 @@ module.exports = (message, args) => {
     }
 
     // Runs Twitblend
-    require('child_process').exec(`./virt/bin/twitblend --cache-dir ./Twitblend/cache --key-file ../api.txt --num-generated 2${users}`, (err, stdout, stderr) => {
+    require('child_process').exec(`./virt/bin/twitblend --cache-dir ./cache --key-file ./api.txt --num-generated 2${users}`, (err, stdout, stderr) => {
         if (err || stderr) {
             message.reply('sorry but an error has ocurred. This may be caused by: \n\
                 1. A user has a private account or doesn\'t exist,\n\
                 2. A user has not tweeted in the past 30 days,\n\
-                    (I *could* download every tweet a person has ever made but I won\'t.)\n\
                 3. A user has blocked @TwitblendBot on Twitter, \n\
                 4. Twitter didn\'t like the bot and blocked it\'s API keys,\n\
-                5. Something fucked up somewhere.');
+                5. Something else fucked up somewhere.');
             console.error(err);
             return;
         }
 
-        var output = stdout.replace(/\\x..|b'|RT/gm, '');
+        var output = stdout.replace(/\\x..|b'|RT|\\n/gm, '');
         message.channel.send(`\`\`${output}\`\``);
         }
     )
