@@ -1,6 +1,7 @@
 {
     "example": false,
 
+    "ama": true,
     "amalgamate": true,
     "credits": true,
     "hash": true,
