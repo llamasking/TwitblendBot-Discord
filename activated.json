@@ -3,6 +3,7 @@
 
     "ama": true,
     "amalgamate": true,
+    "blend": true,
     "credits": true,
     "hash": true,
     "help": true

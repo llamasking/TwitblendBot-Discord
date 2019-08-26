@@ -25,7 +25,7 @@ module.exports = (message, args) => {
                 1. A user has a private account or doesn\'t exist,\n\
                 2. A user has not tweeted in the past 30 days,\n\
                 3. A user has blocked @TwitblendBot on Twitter, \n\
-                4. Twitter didn\'t like the bot and blocked it\'s API keys,\n\
+                4. Twitter didn\'t like the bot and revoked it\'s API keys,\n\
                 5. Something else fucked up somewhere.');
             console.error(err);
         } else {
