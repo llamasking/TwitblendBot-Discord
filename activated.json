@@ -4,6 +4,8 @@
     "ama": true,
     "amalgamate": true,
     "blend": true,
+    "twitblend": true,
+
     "credits": true,
     "hash": true,
     "help": true

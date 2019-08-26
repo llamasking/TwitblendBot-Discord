@@ -19,11 +19,11 @@ module.exports = (message, args) => {
     };
 
     // Runs Twitblend
-    require('child_process').exec(`./virt/bin/twitblend --cache-dir ./cache --key-file ./api.txt --num-generated 2${users}`, (err, stdout, stderr) => {
+    require('child_process').exec(`twitblend --cache-dir /tmp/ --key-file ./api.txt --num-generated 4${users}`, (err, stdout, stderr) => {
         if (err || stderr) {
-            message.reply('sorry but an error has ocurred. This may be caused by: \n\
+            message.channel.send('Sorry but an error has ocurred. This may be caused by: \n\
                 1. A user has a private account or doesn\'t exist,\n\
-                2. A user has not tweeted in the past 30 days,\n\
+                2. A user has not tweeted,\n\
                 3. A user has blocked @TwitblendBot on Twitter, \n\
                 4. Twitter didn\'t like the bot and revoked it\'s API keys,\n\
                 5. Something else fucked up somewhere.');
