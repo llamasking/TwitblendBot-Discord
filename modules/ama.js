@@ -4,11 +4,6 @@
 */
 
 module.exports = (message, args) => {
-    if (args.indexOf('https://twitter.com/') != -1) {
-        message.channel.send("Sorry, but twitter urls are not yet supported. This is because I'm lazy. I'll probably get to it later.")
-        return;
-    }
-    
     // Notify user command has been seen.
     message.react('👍');
 
@@ -22,14 +17,15 @@ module.exports = (message, args) => {
     };
 
     // Runs Twitblend
-    require('child_process').exec(`twitblend --cache-dir /tmp/ --key-file ./api.txt --num-generated 4${users}`, (err, stdout, stderr) => {
+    require('child_process').execFile('twitblend', [`--key-file ./api.txt --num-generated 4${users}`], (err, stdout, stderr) => {
         if (err || stderr) {
             message.channel.send('Sorry but an error has ocurred. This may be caused by: \n\
                 1. A user has a private account or doesn\'t exist,\n\
                 2. A user has not tweeted,\n\
                 3. A user has blocked @TwitblendBot on Twitter, \n\
                 4. Twitter didn\'t like the bot and revoked it\'s API keys,\n\
-                5. Something else fucked up somewhere.');
+                5. You gave a url. I\'ll be honest. I can fix it and probably will later, just not now.\n\
+                6. Something else fucked up somewhere.');
             console.error(err);
         } else {
             var output = stdout.replace(/\\x..|b'|RT|\\n/gm, '');
