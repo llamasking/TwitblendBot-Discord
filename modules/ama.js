@@ -4,8 +4,11 @@
 */
 
 module.exports = (message, args) => {
-    const fs = require("fs");
-
+    if (args.indexOf('https://twitter.com/') != -1) {
+        message.channel.send("Sorry, but twitter urls are not yet supported. This is because I'm lazy. I'll probably get to it later.")
+        return;
+    }
+    
     // Notify user command has been seen.
     message.react('👍');
 
@@ -30,7 +33,7 @@ module.exports = (message, args) => {
             console.error(err);
         } else {
             var output = stdout.replace(/\\x..|b'|RT|\\n/gm, '');
-            message.reply(`${args}: \n\`\`${output}\`\``);
+            message.reply(`Blend of ${args}: \n\`\`${output}\`\``);
         };
     });
 };
