@@ -28,8 +28,8 @@ module.exports = (message, args) => {
                 6. Something else fucked up somewhere.');
             console.error(err);
         } else {
-            var output = stdout.replace(/\\x..|b'|RT|\\n/gm, '');
-            message.reply(`Blend of ${args}: \n\`\`${output}\`\``);
+            var output = stdout.replace(/\\x..|b'|RT|\\n|\\|'|"|b"/gm, '');
+            message.reply(`blend of: ${args} \n\`\`${output}\`\``);
         };
     });
 };
