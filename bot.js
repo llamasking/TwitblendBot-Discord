@@ -1,14 +1,15 @@
 // Load and prep Discord and client.
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const client = new Discord.Client();
-const fs = require("fs");
+const fs = require('fs');
 
 // Load configs. 
-const config = require("./config.json");
-const activated = require("./activated.json");
+const config = require('./config.json');
+const activated = require('./activated.json');
 
 // Load framework
-const hashthis = require("./framework/hashthis.js")
+const hashthis = require('./framework/hashthis.js')
+const execcmd = require('./framework/exec.js')
 const log = require('./framework/logging.js');
 
 // Starting up!
@@ -19,7 +20,7 @@ modhash = [];
 const mods = fs.readdirSync('./modules', 'utf-8');
 for(i=0; i<mods.length; i++) {
   modhash[i] = hashthis(fs.readFileSync('./modules/'+mods[i]));
-  log(`Detected Module: "${mods[i]}" - Hash: ${modhash[i]} - Activated: ${activated[mods[i].replace(".js", "")]}`);
+  log(`Detected Module: ${mods[i]} - Hash: ${modhash[i]} - Activated: ${activated[mods[i].replace('.js', '')]}`);
 }
 
 // Loadmod function
@@ -65,6 +66,15 @@ client.on("message", async message => {
 
   switch (cmd) {
     // ONLY FOR USE WITH COMMANDS THAT DO NOT PLAY WELL AS A MODULE
+
+    case "exec": {
+      if (message.author.id == config.ownerID) {
+        execcmd(message);
+      } else {
+        // OwnerID does not match message author.
+      }
+      break;
+    }
 
     case "ping": {
     // Calculates ping between sending a message and editing it, giving a nice round-trip latency.
