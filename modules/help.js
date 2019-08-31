@@ -11,7 +11,7 @@ module.exports = (message, args) => {
         .addField("!!help / commands", "This command.")
         .addField("!!ama / amalgamate / blend / twitblend [User1] [User2]...", "Creates an amalgamtion of two or more people's tweets using Markov chains.")
         .addField("!!credits", "Thanks so much, Wildcard0!")
-        .addField("!!ping", "How shitty is my DSL internet today?")
+        .addField("!!ping", "How much mor amazing is Heroku's internet than mine?")
         .setImage("https://raw.githubusercontent.com/llamasking/badboi/master/assets/rainbow.gif")
         .setColor(0x7289DA)
         .setFooter("If you ever run into issues, feel free to join the support server. https://discord.gg/zFxjHYp")
