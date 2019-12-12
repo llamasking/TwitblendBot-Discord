@@ -11,7 +11,7 @@ module.exports = (message, args) => {
     // @RealDonaldTrump and realdonaldtrump are considered different accounts and would have two different cache file.
     // Conserves disk space and internet as it's only saving/downloading realdonaldtrump instead of @RealDonaldTrump/RealDonaldTrump/...
     var users = '';
-    for(i=args.length-1; i>-1; i--) {
+    for (i = args.length - 1; i > -1; i--) {
         var sanetize = args[i].replace(/\W+/gmiu, '').toString().toLowerCase();
         var users = `${users} --username ${sanetize}`;
     };
