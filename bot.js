@@ -14,8 +14,6 @@ const fs = require('fs');
 // Use Heroku Config Vars for 
 const config = process.env;
 
-console.log(process.env)
-
 // Load activated modules
 const activated = require('./activated.json');
 
@@ -28,9 +26,9 @@ const log = require('./framework/logging.js');
 log('Bot starting up!')
 
 // Detect modules
-modhash = [];
+var modhash = [];
 const mods = fs.readdirSync('./modules', 'utf-8');
-for (i = 0; i < mods.length; i++) {
+for (var i = 0; i < mods.length; i++) {
   modhash[i] = hashthis(fs.readFileSync('./modules/' + mods[i]));
   log(`Detected Module: ${mods[i]} - Hash: ${modhash[i]} - Activated: ${activated[mods[i].replace('.js', '')]}`);
 }
@@ -40,8 +38,11 @@ function loadmod(command, args, message) {
   // Ignore disabled modules
   if (activated[command] == undefined || false) return;
 
-  x = require(`./modules/${command}.js`);
+  var x = require(`./modules/${command}.js`);
   x(message, args)
+
+  // Log for debug purposes
+  log(`Command : "${message.content}"`)
 }
 
 // Overall hash of everything
@@ -55,7 +56,9 @@ client.on("ready", () => {
     Total hash: ${totalhash}
     Time: ${new Date()}
     Serving ${client.guilds.size} servers with ${client.users.size} users.\n`);
-  client.user.setActivity(config.activity);
+
+  // Activity is hard coded in because I don't feel like plugging it into heroku.
+  client.user.setActivity('with words', { type: "PLAYING" });
 });
 
 client.on("guildCreate", guild => { log(`Joined new server: ${guild.name} with ${guild.memberCount} members.`) });

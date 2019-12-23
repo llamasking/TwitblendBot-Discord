@@ -5,7 +5,7 @@
 
 const Discord = require("discord.js");
 
-module.exports = (message, args) => {
+module.exports = (message) => {
     var embed = new Discord.RichEmbed()
         .setTitle("Commands")
         .addField("!!help / commands", "This command.")
@@ -15,5 +15,5 @@ module.exports = (message, args) => {
         .setImage("https://raw.githubusercontent.com/llamasking/badboi/master/assets/rainbow.gif")
         .setColor(0x7289DA)
         .setFooter("If you ever run into issues, feel free to join the support server. https://discord.gg/zFxjHYp")
-    message.channel.send({embed});
+    message.channel.send({ embed });
 }

@@ -18,13 +18,13 @@ module.exports = (message, args) => {
     // '@Twitter' and 'twitter' are considered different accounts and would have two different cache files.
     // Conserves disk space and internet as it's only saving/downloading 'twitter' instead of @Twitter/twitter/...
     var users = '';
-    for (i = args.length - 1; i > -1; i--) {
+    for (var i = 0; i < args.length; i++) {
         var sanetize = args[i].replace(/\W+/gmiu, '').toString().toLowerCase();
-        var users = `${users} --username ${sanetize}`;
-    };
+        users = `${users} --username ${sanetize}`;
+    }
 
     // Runs Twitblend
-    require('child_process').exec(`twitblend ${apiKeys} --num-generated 4${users}`, (err, stdout, stderr) => {
+    require('child_process').exec(`twitblend ${apiKeys} --cache-dir /tmp --num-generated 4${users}`, (err, stdout, stderr) => {
         if (err || stderr) {
             message.channel.send('Sorry but an error has ocurred. This may be caused by: \n\
                 1. A user has a private account or doesn\'t exist,\n\
@@ -37,6 +37,6 @@ module.exports = (message, args) => {
         } else {
             var output = stdout.replace(/\\x..|b'|RT|\\n|\\|'|"|b"/gm, '');
             message.reply(`blend of: ${args} \n\`\`${output}\`\``);
-        };
+        }
     });
 };
