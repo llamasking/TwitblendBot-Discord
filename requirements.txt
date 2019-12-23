@@ -8,5 +8,5 @@ requests==2.22.0
 requests-oauthlib==1.3.0
 six==1.13.0
 tweepy==3.8.0
--e git+https://github.com/wildcard0/Twitblend@8d33729722d72cfa30a7c8d8b77ec108c5d4b362#egg=twitblend
+-e git+https://github.com/wildcard0/Twitblend#egg=twitblend
 urllib3==1.25.7
