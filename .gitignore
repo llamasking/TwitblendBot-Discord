@@ -67,4 +67,5 @@ typings/
 config.json
 api.txt
 virt/
+venv/
 cache/*
