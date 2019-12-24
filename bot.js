@@ -18,8 +18,8 @@ const config = process.env;
 const activated = require('./activated.json');
 
 // Load framework
-const hashthis = require('./framework/hashthis.js')
-const execcmd = require('./framework/exec.js')
+const hashthis = require('./framework/hashthis.js');
+const execcmd = require('./framework/exec.js');
 const log = require('./framework/logging.js');
 
 // Starting up!
@@ -58,8 +58,8 @@ client.on("ready", () => {
   client.user.setActivity('with words', { type: "PLAYING" });
 });
 
-client.on("guildCreate", guild => { log(`Joined new server: ${guild.name} with ${guild.memberCount} members.`) });
-client.on("guildDelete", guild => { log(`Left server: ${guild.name} with ${guild.memberCount} members.`) });
+client.on('guildCreate', (guild) => { log(`Joined new server: ${guild.name} with ${guild.memberCount} members.`) });
+client.on('guildDelete', (guild) => { log(`Left server: ${guild.name} with ${guild.memberCount} members.`) });
 
 client.on("message", async message => {
   // Cut out bots and group chats/dms.
@@ -98,7 +98,7 @@ client.on("message", async message => {
 
     // Load from module if command plays well in a module
     default: {
-      loadmod(cmd, args, message)
+      loadmod(cmd, args, message);
     }
   }
 

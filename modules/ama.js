@@ -23,7 +23,7 @@ module.exports = (message, args) => {
     // Conserves disk space and bandwidth as it's only saving/downloading 'twitter' instead of @Twitter/Twitter/@twitter...
     for (var i = 0; i < args.length; i++) {
         var sanetize = args[i].replace(/\W+/gmiu, '').toString().toLowerCase();
-        tbArgs.push('--username', sanetize)
+        tbArgs.push('--username', sanetize);
 
         users = `${users}, ${sanetize}`;
     }
@@ -43,11 +43,11 @@ module.exports = (message, args) => {
     require('child_process').execFile('twitblend', tbArgs, { shell: true }, (err, stdout, stderr) => {
         if (err || stderr) {
             message.channel.send('Sorry but an error has ocurred. This may be caused by: \n\
-                1. A user has a private account or doesn\'t exist,\n\
-                2. A user has not tweeted,\n\
+                1. A user has a private account or doesn\'t exist, \n\
+                2. A user has not tweeted, \n\
                 3. A user has blocked @TwitblendBot on Twitter, \n\
-                4. Twitter didn\'t like the bot and revoked it\'s API keys,\n\
-                5. You gave a url. I\'ll be honest. I can fix it and probably will later, just not now.\n\
+                4. Twitter didn\'t like the bot and revoked it\'s API keys, \n\
+                5. You gave a url. I\'ll be honest. I can fix it and probably will later, just not now. \n\
                 6. Something else fucked up somewhere.');
             console.error(err);
         } else {
