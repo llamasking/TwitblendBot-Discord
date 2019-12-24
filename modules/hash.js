@@ -6,8 +6,8 @@
 // Except for one dir change, this is the exact same as the hashing in bot.js.
 
 // Load framework
-const fs = require("fs");
-const hashthis = require("../framework/hashthis.js")
+const fs = require('fs');
+const hashthis = require('../framework/hashthis.js');
 
 // Detect modules
 var modhash = [];
@@ -20,6 +20,6 @@ for (var i = 0; i < mods.length; i++) {
 const botjshash = hashthis(fs.readFileSync('./bot.js'));
 const totalhash = hashthis(modhash.toString() + botjshash);
 
-module.exports = (message, args) => {
-  message.channel.send(`\`\`Bot.js Hash: ${botjshash}\n\Total Hash: ${totalhash}\`\``);
-}
+module.exports = (message) => {
+  message.channel.send(`\`\`Bot.js Hash: ${botjshash}\nTotal Hash: ${totalhash}\`\``);
+};

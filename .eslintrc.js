@@ -15,7 +15,9 @@ module.exports = {
     "rules": {
         "curly": "off",
         "single": "off",
-        "quotes": "single",
-        "no-console": "off"
+        "quotes": [1, "single", { "avoidEscape": true }],
+        "no-console": "off",
+        "semi": "warn",
+        "eqeqeq": "warn"
     }
 };
