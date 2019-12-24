@@ -7,24 +7,40 @@ module.exports = (message, args) => {
     // Notify user command has been seen.
     message.react('👍');
 
-    // Parse API keys and secrets.
-    const _consumerKey = process.env.consumer_key;
-    const _consumerSecret = process.env.consumer_secret;
-    const _access_key = process.env.access_key;
-    const _access_secret = process.env.access_secret;
-    const apiKeys = `--consumer-key ${_consumerKey} --consumer-secret ${_consumerSecret} --access-key ${_access_key} --access-secret ${_access_secret}`;
+    // Set up twitblend arguments
+    var tbArgs = [
+        '--cache-dir', '/tmp/',
+        '--num-generated', '5',
+        '--consumer-key', process.env.consumer_key,
+        '--consumer-secret', process.env.consumer_secret,
+        '--access-key', process.env.access_key,
+        '--access-secret', process.env.access_secret
+    ];
+    var users = '';
 
     // Remove the @ from twitter handles and make them lowercase. Also sanetizes usernames.
     // '@Twitter' and 'twitter' are considered different accounts and would have two different cache files.
-    // Conserves disk space and internet as it's only saving/downloading 'twitter' instead of @Twitter/twitter/...
-    var users = '';
+    // Conserves disk space and bandwidth as it's only saving/downloading 'twitter' instead of @Twitter/Twitter/@twitter...
     for (var i = 0; i < args.length; i++) {
         var sanetize = args[i].replace(/\W+/gmiu, '').toString().toLowerCase();
-        users = `${users} --username ${sanetize}`;
+        tbArgs.push('--username', sanetize)
+
+        users = `${users}, ${sanetize}`;
     }
 
-    // Runs Twitblend
-    require('child_process').exec(`twitblend ${apiKeys} --cache-dir /tmp --num-generated 4${users}`, (err, stdout, stderr) => {
+    /* 
+     * Runs TwitBlend but safely because it has no shell.
+     * But actually not because Twitblend needs a shell!
+     *    ______ _    _  _____ _  __  __  __ ______     _____  _____ _____ _    _ _______ ___
+     *   |  ____| |  | |/ ____| |/ / |  \/  |  ____|   |  __ \|_   _/ ____| |  | |__   __|__ \
+     *   | |__  | |  | | |    | ' /  | \  / | |__      | |__) | | || |  __| |__| |  | |     ) |
+     *   |  __| | |  | | |    |  <   | |\/| |  __|     |  _  /  | || | |_ |  __  |  | |    / /
+     *   | |    | |__| | |____| . \  | |  | | |____ _  | | \ \ _| || |__| | |  | |  | |   |_|
+     *   |_|     \____/ \_____|_|\_\ |_|  |_|______( ) |_|  \_\_____\_____|_|  |_|  |_|   (_)
+     *                                           |/
+    */
+
+    require('child_process').execFile('twitblend', tbArgs, { shell: true }, (err, stdout, stderr) => {
         if (err || stderr) {
             message.channel.send('Sorry but an error has ocurred. This may be caused by: \n\
                 1. A user has a private account or doesn\'t exist,\n\
@@ -36,7 +52,7 @@ module.exports = (message, args) => {
             console.error(err);
         } else {
             var output = stdout.replace(/\\x..|b'|RT|\\n|\\|'|"|b"/gm, '');
-            message.reply(`blend of: ${args} \n\`\`${output}\`\``);
+            message.reply(`blend of:${users} \n\`\`${output}\`\``);
         }
     });
 };

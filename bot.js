@@ -40,9 +40,6 @@ function loadmod(command, args, message) {
 
   var x = require(`./modules/${command}.js`);
   x(message, args)
-
-  // Log for debug purposes
-  log(`Command : "${message.content}"`)
 }
 
 // Overall hash of everything
