@@ -25,7 +25,7 @@ module.exports = (message, args) => {
         var sanetize = args[i].replace(/\W+/gmiu, '').toString().toLowerCase();
         tbArgs.push('--username', sanetize);
 
-        users = `${users}, ${sanetize}`;
+        users = `${users} @${sanetize},`;
     }
 
     /* 
@@ -42,7 +42,7 @@ module.exports = (message, args) => {
 
     require('child_process').execFile('twitblend', tbArgs, { shell: true }, (err, stdout, stderr) => {
         if (err || stderr) {
-            message.channel.send('Sorry but an error has ocurred. This may be caused by: \n\
+            message.reply('sorry but an error has ocurred. This may be caused by: \n\
                 1. A user has a private account or doesn\'t exist, \n\
                 2. A user has not tweeted, \n\
                 3. A user has blocked @TwitblendBot on Twitter, \n\
