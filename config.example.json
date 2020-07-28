@@ -1,6 +1,13 @@
 {
-  "token"  : "<Token>",
-  "prefix" : "!!",
-  "activity" : "<Activity>",
-  "ownerID" : "<Your Discord ID>"
+    "token": "Token",
+    "prefix": "!!",
+    "presence": {
+        "activity": {
+            "name": "with words",
+            "type": "PLAYING"
+        },
+
+        "status": "online"
+    },
+    "ownerID": "YourDiscordID"
 }
